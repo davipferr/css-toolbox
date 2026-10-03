@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Preview and copy CSS border-radius values in real time.">
-  <title>Border Radius Previewer</title>
+  <meta name="description" content="A small toolbox of visual CSS utilities: border-radius previewer, margin & padding visualizer.">
+  <title>CSS Toolbox</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,94 +18,281 @@
   </div>
 
   <header class="header">
-    <h1 class="title">Border Radius <span class="title-accent">Previewer</span></h1>
-    <p class="subtitle">Tweak each corner and copy the CSS in one click.</p>
+    <h1 class="title">CSS <span class="title-accent">Toolbox</span></h1>
+    <p class="subtitle">Visual CSS utilities. Tweak, preview and copy in one click.</p>
   </header>
 
-  <main class="card">
-    <div class="props-text" id="change-css">
-      <div class="controls controls-top">
-        <label class="text-align control">
-          <span id="border-top-left-radius" class="control-label"></span>
-          <span class="control-field">
-            <input
-              id="border-top-left-radius"
-              type="number"
-              min="0"
-              max="100"
-              value="0"
-            >
-            <span class="unit">%</span>
-          </span>
-        </label>
-        <label class="text-align control">
-          <span id="border-top-right-radius" class="control-label"></span>
-          <span class="control-field">
-            <input
-              id="border-top-right-radius"
-              type="number"
-              min="0"
-              max="100"
-              value="0"
-            >
-            <span class="unit">%</span>
-          </span>
-        </label>
+  <nav class="tabs" role="tablist" aria-label="Utilities">
+    <button
+      class="tab"
+      id="tab-radius"
+      role="tab"
+      type="button"
+      aria-controls="panel-radius"
+      aria-selected="true"
+      data-hash="radius"
+    >
+      Border Radius
+    </button>
+    <button
+      class="tab"
+      id="tab-spacing"
+      role="tab"
+      type="button"
+      aria-controls="panel-spacing"
+      aria-selected="false"
+      tabindex="-1"
+      data-hash="spacing"
+    >
+      Margin &amp; Padding
+    </button>
+  </nav>
+
+  <main class="panels">
+    <!-- ========== Border radius ========== -->
+    <section
+      class="card panel"
+      id="panel-radius"
+      role="tabpanel"
+      aria-labelledby="tab-radius"
+    >
+      <div class="props-text" id="change-css">
+        <div class="controls controls-top">
+          <label class="text-align control">
+            <span id="border-top-left-radius" class="control-label"></span>
+            <span class="control-field">
+              <input
+                id="border-top-left-radius"
+                type="number"
+                min="0"
+                max="100"
+                value="0"
+              >
+              <span class="unit">%</span>
+            </span>
+          </label>
+          <label class="text-align control">
+            <span id="border-top-right-radius" class="control-label"></span>
+            <span class="control-field">
+              <input
+                id="border-top-right-radius"
+                type="number"
+                min="0"
+                max="100"
+                value="0"
+              >
+              <span class="unit">%</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="align-center stage">
+          <div class="box box-radius"></div>
+        </div>
+
+        <div class="controls controls-bottom">
+          <label class="text-align control">
+            <span id="border-bottom-left-radius" class="control-label"></span>
+            <span class="control-field">
+              <input
+                id="border-bottom-left-radius"
+                type="number"
+                min="0"
+                max="100"
+                value="0"
+              >
+              <span class="unit">%</span>
+            </span>
+          </label>
+          <label class="text-align control">
+            <span id="border-bottom-right-radius" class="control-label"></span>
+            <span class="control-field">
+              <input
+                id="border-bottom-right-radius"
+                type="number"
+                min="0"
+                max="100"
+                value="0"
+              >
+              <span class="unit">%</span>
+            </span>
+          </label>
+        </div>
       </div>
 
-      <div class="align-center stage">
-        <div class="box box-radius"></div>
+      <div class="align-center actions">
+        <button
+          id="copy-button"
+          class="copy-button"
+          type="button"
+        >
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+          </svg>
+          Copy CSS
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== Margin & padding ========== -->
+    <section
+      class="card panel"
+      id="panel-spacing"
+      role="tabpanel"
+      aria-labelledby="tab-spacing"
+      hidden
+    >
+      <div class="spacing-controls">
+        <fieldset class="side-group" data-prop="margin">
+          <legend class="side-legend">
+            <span class="swatch swatch-margin"></span>
+            Margin
+          </legend>
+          <div class="side-grid">
+            <label class="control">
+              <span class="control-label">top</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="24" data-side="top">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">right</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="24" data-side="right">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">bottom</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="24" data-side="bottom">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">left</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="24" data-side="left">
+                <span class="unit">px</span>
+              </span>
+            </label>
+          </div>
+          <label class="link-toggle">
+            <input type="checkbox" class="link-input">
+            <span class="link-switch" aria-hidden="true"></span>
+            Same value on all sides
+          </label>
+        </fieldset>
+
+        <fieldset class="side-group" data-prop="padding">
+          <legend class="side-legend">
+            <span class="swatch swatch-padding"></span>
+            Padding
+          </legend>
+          <div class="side-grid">
+            <label class="control">
+              <span class="control-label">top</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="16" data-side="top">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">right</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="32" data-side="right">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">bottom</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="16" data-side="bottom">
+                <span class="unit">px</span>
+              </span>
+            </label>
+            <label class="control">
+              <span class="control-label">left</span>
+              <span class="control-field">
+                <input type="number" min="0" max="100" value="32" data-side="left">
+                <span class="unit">px</span>
+              </span>
+            </label>
+          </div>
+          <label class="link-toggle">
+            <input type="checkbox" class="link-input">
+            <span class="link-switch" aria-hidden="true"></span>
+            Same value on all sides
+          </label>
+        </fieldset>
       </div>
 
-      <div class="controls controls-bottom">
-        <label class="text-align control">
-          <span id="border-bottom-left-radius" class="control-label"></span>
-          <span class="control-field">
-            <input
-              id="border-bottom-left-radius"
-              type="number"
-              min="0"
-              max="100"
-              value="0"
-            >
-            <span class="unit">%</span>
-          </span>
-        </label>
-        <label class="text-align control">
-          <span id="border-bottom-right-radius" class="control-label"></span>
-          <span class="control-field">
-            <input
-              id="border-bottom-right-radius"
-              type="number"
-              min="0"
-              max="100"
-              value="0"
-            >
-            <span class="unit">%</span>
-          </span>
-        </label>
-      </div>
-    </div>
+      <div class="bm-stage" id="bm-stage">
+        <div class="bm-parent">
+          <span class="bm-tag">parent</span>
+          <div class="bm-layer bm-margin">
+            <span class="bm-tag">margin</span>
+            <span class="bm-val" data-prop="margin" data-side="top"></span>
+            <span class="bm-val" data-prop="margin" data-side="right"></span>
+            <span class="bm-val" data-prop="margin" data-side="bottom"></span>
+            <span class="bm-val" data-prop="margin" data-side="left"></span>
 
-    <div class="align-center actions">
-      <button
-        id="copy-button"
-        class="copy-button"
-        type="button"
-      >
-        <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="9" y="9" width="12" height="12" rx="2"></rect>
-          <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
-        </svg>
-        Copy CSS
-      </button>
-    </div>
+            <div class="bm-layer bm-border">
+              <div class="bm-layer bm-padding">
+                <span class="bm-tag">padding</span>
+                <span class="bm-val" data-prop="padding" data-side="top"></span>
+                <span class="bm-val" data-prop="padding" data-side="right"></span>
+                <span class="bm-val" data-prop="padding" data-side="bottom"></span>
+                <span class="bm-val" data-prop="padding" data-side="left"></span>
+
+                <div class="bm-content">content</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="legend">
+        <li>
+          <span class="swatch swatch-margin"></span>
+          <p><strong>Margin</strong> is space <em>outside</em> the border. It pushes other elements away and is always transparent.</p>
+        </li>
+        <li>
+          <span class="swatch swatch-border"></span>
+          <p><strong>Border</strong> wraps the padding and content. It's the visible edge of the element.</p>
+        </li>
+        <li>
+          <span class="swatch swatch-padding"></span>
+          <p><strong>Padding</strong> is space <em>inside</em> the border. It takes the element's background color.</p>
+        </li>
+      </ul>
+
+      <pre class="code-output"><code id="spacing-code"></code></pre>
+
+      <div class="align-center actions">
+        <button
+          id="spacing-copy-button"
+          class="copy-button"
+          type="button"
+        >
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+          </svg>
+          Copy CSS
+        </button>
+      </div>
+    </section>
   </main>
 
   <span class="copy-text" id="copy-message" role="status" aria-live="polite"></span>
 
+  <script type="module" src="scripts/tabs.js"></script>
   <script type="module" src="scripts/index.js"></script>
   <script type="module" src="scripts/copy-css.js"></script>
+  <script type="module" src="scripts/spacing.js"></script>
   <script src="scripts/input-change.js"></script>
 </body>
 </html>

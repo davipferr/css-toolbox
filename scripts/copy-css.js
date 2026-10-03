@@ -1,5 +1,6 @@
 
 import getOneElement from "./util/filterNodeList.js";
+import showToast from "./util/toast.js";
 
 const button = document.getElementById("copy-button");
 
@@ -45,11 +46,5 @@ const makeCssText = (arrayOfTexts, arrayOfvalues) => {
 
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text);
-
-  let span = document.getElementById("copy-message");
-  span.textContent = "Copiado!";
-
-  setTimeout(() => {
-    span.textContent = "";
-  }, 3000);
+  showToast("Copiado!");
 }

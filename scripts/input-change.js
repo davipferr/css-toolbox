@@ -1,4 +1,4 @@
-const inputs = document.querySelectorAll(`input`);
+const inputs = document.querySelectorAll(`#change-css input`);
 
 const boxRadius = document.querySelectorAll(".box-radius");
 
