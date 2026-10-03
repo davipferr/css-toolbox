@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A small toolbox of visual CSS utilities: border-radius previewer, margin & padding visualizer.">
+  <meta name="description" content="A small toolbox of visual CSS utilities: border-radius, margin &amp; padding, flexbox, grid and position.">
   <title>CSS Toolbox</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +45,42 @@
       data-hash="spacing"
     >
       Margin &amp; Padding
+    </button>
+    <button
+      class="tab"
+      id="tab-flexbox"
+      role="tab"
+      type="button"
+      aria-controls="panel-flexbox"
+      aria-selected="false"
+      tabindex="-1"
+      data-hash="flexbox"
+    >
+      Flexbox
+    </button>
+    <button
+      class="tab"
+      id="tab-grid"
+      role="tab"
+      type="button"
+      aria-controls="panel-grid"
+      aria-selected="false"
+      tabindex="-1"
+      data-hash="grid"
+    >
+      Grid
+    </button>
+    <button
+      class="tab"
+      id="tab-position"
+      role="tab"
+      type="button"
+      aria-controls="panel-position"
+      aria-selected="false"
+      tabindex="-1"
+      data-hash="position"
+    >
+      Position
     </button>
   </nav>
 
@@ -273,10 +309,200 @@
 
       <div class="align-center actions">
         <button
-          id="spacing-copy-button"
           class="copy-button"
           type="button"
+          data-copy-target="spacing-code"
         >
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+          </svg>
+          Copy CSS
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== Flexbox ========== -->
+    <section
+      class="card panel"
+      id="panel-flexbox"
+      role="tabpanel"
+      aria-labelledby="tab-flexbox"
+      hidden
+    >
+      <div class="option-list" id="flex-options"></div>
+
+      <div class="number-row">
+        <label class="control">
+          <span class="control-label">gap</span>
+          <span class="control-field">
+            <input type="number" min="0" max="64" value="12" id="flex-gap">
+            <span class="unit">px</span>
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">items</span>
+          <span class="control-field">
+            <input type="number" min="1" max="12" value="5" id="flex-count">
+          </span>
+        </label>
+      </div>
+
+      <p class="hint">
+        Click an item to toggle <code>flex-grow: 1</code>.
+        Drag the bottom-right corner of the preview to resize it.
+      </p>
+
+      <div class="flex-preview" id="flex-preview"></div>
+
+      <pre class="code-output"><code id="flex-code"></code></pre>
+
+      <div class="align-center actions">
+        <button class="copy-button" type="button" data-copy-target="flex-code">
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+          </svg>
+          Copy CSS
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== Grid ========== -->
+    <section
+      class="card panel"
+      id="panel-grid"
+      role="tabpanel"
+      aria-labelledby="tab-grid"
+      hidden
+    >
+      <div class="number-row">
+        <label class="control">
+          <span class="control-label">columns</span>
+          <span class="control-field">
+            <input type="number" min="1" max="12" value="4" id="grid-cols">
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">rows</span>
+          <span class="control-field">
+            <input type="number" min="1" max="12" value="3" id="grid-rows">
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">column-gap</span>
+          <span class="control-field">
+            <input type="number" min="0" max="64" value="12" id="grid-col-gap">
+            <span class="unit">px</span>
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">row-gap</span>
+          <span class="control-field">
+            <input type="number" min="0" max="64" value="12" id="grid-row-gap">
+            <span class="unit">px</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="hint-row">
+        <p class="hint">
+          Click and drag over the cells to create an item. Use <strong>×</strong> to remove one.
+        </p>
+        <button class="ghost-button" type="button" id="grid-clear">Clear items</button>
+      </div>
+
+      <div class="grid-preview" id="grid-preview"></div>
+
+      <pre class="code-output"><code id="grid-code"></code></pre>
+
+      <div class="align-center actions">
+        <button class="copy-button" type="button" data-copy-target="grid-code">
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+          </svg>
+          Copy CSS
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== Position ========== -->
+    <section
+      class="card panel"
+      id="panel-position"
+      role="tabpanel"
+      aria-labelledby="tab-position"
+      hidden
+    >
+      <div class="option-list" id="position-options"></div>
+
+      <div class="side-grid side-grid-4" id="position-offsets">
+        <label class="control">
+          <span class="control-label">top</span>
+          <span class="control-field">
+            <input type="number" value="20" placeholder="auto" data-side="top">
+            <span class="unit">px</span>
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">right</span>
+          <span class="control-field">
+            <input type="number" value="" placeholder="auto" data-side="right">
+            <span class="unit">px</span>
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">bottom</span>
+          <span class="control-field">
+            <input type="number" value="" placeholder="auto" data-side="bottom">
+            <span class="unit">px</span>
+          </span>
+        </label>
+        <label class="control">
+          <span class="control-label">left</span>
+          <span class="control-field">
+            <input type="number" value="20" placeholder="auto" data-side="left">
+            <span class="unit">px</span>
+          </span>
+        </label>
+      </div>
+
+      <label class="link-toggle">
+        <input type="checkbox" class="link-input" id="position-parent" checked>
+        <span class="link-switch" aria-hidden="true"></span>
+        Parent has <code>position: relative</code>
+      </label>
+
+      <p class="explain" id="position-explain"></p>
+
+      <div class="pos-frame">
+        <span class="pos-frame-tag">viewport · scroll inside</span>
+        <div class="pos-scroll">
+          <div class="pos-page">
+            <div class="pos-block">sibling</div>
+            <div class="pos-parent" id="position-parent-box">
+              <span class="pos-tag">parent</span>
+              <div class="pos-block">sibling</div>
+              <div class="pos-slot" id="position-slot">
+                <div class="pos-target" id="position-target">element</div>
+              </div>
+              <div class="pos-block">sibling</div>
+              <div class="pos-block">sibling</div>
+              <div class="pos-block">sibling</div>
+              <div class="pos-block">sibling</div>
+            </div>
+            <div class="pos-block">sibling</div>
+            <div class="pos-block">sibling</div>
+            <div class="pos-block">sibling</div>
+          </div>
+        </div>
+      </div>
+
+      <pre class="code-output"><code id="position-code"></code></pre>
+
+      <div class="align-center actions">
+        <button class="copy-button" type="button" data-copy-target="position-code">
           <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="9" y="9" width="12" height="12" rx="2"></rect>
             <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
@@ -293,6 +519,10 @@
   <script type="module" src="scripts/index.js"></script>
   <script type="module" src="scripts/copy-css.js"></script>
   <script type="module" src="scripts/spacing.js"></script>
+  <script type="module" src="scripts/flexbox.js"></script>
+  <script type="module" src="scripts/grid.js"></script>
+  <script type="module" src="scripts/position.js"></script>
+  <script type="module" src="scripts/copy-code.js"></script>
   <script src="scripts/input-change.js"></script>
 </body>
 </html>

@@ -1,14 +1,11 @@
 "use strict"
 
-import showToast from "./util/toast.js";
-
 const sides = ["top", "right", "bottom", "left"];
 
 const stage = document.getElementById("bm-stage");
 const marginLayer = stage.querySelector(".bm-margin");
 const paddingLayer = stage.querySelector(".bm-padding");
 const codeOutput = document.getElementById("spacing-code");
-const copyButton = document.getElementById("spacing-copy-button");
 
 // Smallest width (px) the content box may shrink to inside the diagram
 const MIN_CONTENT_WIDTH = 80;
@@ -104,11 +101,6 @@ groups.forEach(group => {
       render();
     }
   });
-});
-
-copyButton.addEventListener("click", () => {
-  navigator.clipboard.writeText(makeCssText());
-  showToast("Copiado!");
 });
 
 // Re-render when the stage size changes (window resize or tab becoming visible)

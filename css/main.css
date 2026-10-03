@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --bg: #f4f2fb;
   --bg-accent-1: #c4b5fd;
   --bg-accent-2: #fbcfe8;
@@ -24,6 +25,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #0d0b16;
     --bg-accent-1: #4c1d95;
     --bg-accent-2: #831843;
@@ -138,7 +140,9 @@ body {
 /* ---------- Tabs ---------- */
 
 .tabs {
+  position: relative;
   display: flex;
+  scrollbar-width: none;
   gap: 4px;
   padding: 5px;
   max-width: 100%;
@@ -149,6 +153,10 @@ body {
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
@@ -635,6 +643,372 @@ body {
   border-radius: 14px;
 }
 
+/* ---------- Shared tool pieces ---------- */
+
+.option-list {
+  display: grid;
+  gap: 16px;
+}
+
+.option-row {
+  display: grid;
+  gap: 8px;
+}
+
+.option-name {
+  font: 500 0.78rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: var(--text-muted);
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  position: relative;
+  cursor: pointer;
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip span {
+  display: inline-block;
+  padding: 7px 12px;
+  font: 500 0.8rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: var(--text-muted);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover span {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.chip input:checked + span {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+}
+
+.chip input:focus-visible + span {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.number-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin-top: 20px;
+}
+
+#panel-grid .number-row {
+  margin-top: 0;
+}
+
+.hint {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.hint-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 16px;
+}
+
+.hint-row .hint {
+  margin: 0;
+}
+
+code {
+  font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.hint code,
+.link-toggle code {
+  padding: 1px 6px;
+  color: var(--text);
+  background: var(--accent-soft);
+  border-radius: 6px;
+}
+
+.ghost-button {
+  padding: 8px 16px;
+  font: 600 0.85rem 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.ghost-button:hover {
+  border-color: var(--accent);
+}
+
+.ghost-button:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.flex-preview,
+.grid-preview {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px dashed var(--field-border);
+  background-color: var(--field-bg);
+  background-image:
+    linear-gradient(var(--stage-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--stage-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ---------- Flexbox tool ---------- */
+
+.flex-preview {
+  display: flex;
+  min-height: 280px;
+  min-width: 160px;
+  max-width: 100%;
+  overflow: auto;
+  resize: horizontal;
+}
+
+.flex-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font: 700 1rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: #1e1b2e;
+  background-color: hsl(var(--hue) 85% 72%);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.flex-item:hover {
+  transform: translateY(-2px);
+}
+
+.flex-item:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.flex-item[aria-pressed="true"] {
+  border-color: #1e1b2e;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 10px,
+    rgba(255, 255, 255, 0.35) 10px 12px
+  );
+}
+
+.flex-item[aria-pressed="true"]::after {
+  content: "grow";
+  margin-left: 6px;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+/* ---------- Grid tool ---------- */
+
+.grid-preview {
+  display: grid;
+  touch-action: none;
+  user-select: none;
+  cursor: crosshair;
+}
+
+.grid-cell {
+  border: 1px dashed var(--text-muted);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+.grid-cell:hover {
+  opacity: 0.8;
+}
+
+.grid-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  font: 600 0.8rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: #1e1b2e;
+  background: hsl(var(--hue) 85% 72% / 0.92);
+  border-radius: 10px;
+  box-shadow: 0 6px 16px -8px hsl(var(--hue) 60% 30%);
+}
+
+.grid-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: #1e1b2e;
+  background: rgba(255, 255, 255, 0.55);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.grid-remove:hover,
+.grid-remove:focus-visible {
+  background: #fff;
+}
+
+.grid-selection {
+  z-index: 2;
+  border: 2px dashed var(--accent);
+  border-radius: 10px;
+  background: var(--accent-soft);
+  pointer-events: none;
+}
+
+/* ---------- Position tool ---------- */
+
+.side-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 20px;
+  transition: opacity 0.2s ease;
+}
+
+.side-grid-4.is-disabled {
+  opacity: 0.4;
+}
+
+.explain {
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+}
+
+/* The transform makes the frame the containing block for position: fixed,
+   so "fixed" sticks to the preview instead of the real browser window */
+.pos-frame {
+  position: relative;
+  height: 340px;
+  margin-top: 16px;
+  overflow: hidden;
+  transform: translateZ(0);
+  border: 2px solid var(--text-muted);
+  border-radius: 16px;
+  background: var(--field-bg);
+}
+
+.pos-frame-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  padding: 4px 10px;
+  font: 500 0.68rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: var(--bg);
+  background: var(--text-muted);
+  border-bottom-left-radius: 10px;
+}
+
+.pos-scroll {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Plays the role of the page: absolute elements with no positioned
+   ancestor are placed against it and scroll with it */
+.pos-page {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.pos-parent {
+  display: grid;
+  gap: 10px;
+  padding: 10px 16px 16px;
+  border: 2px dashed var(--field-border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.pos-parent.is-positioned {
+  border-color: var(--accent);
+}
+
+.pos-tag {
+  font: 500 0.68rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: var(--text-muted);
+}
+
+.pos-block {
+  padding: 14px;
+  font: 500 0.75rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--field-border);
+  border-radius: 10px;
+}
+
+.pos-slot {
+  border: 2px dashed transparent;
+  border-radius: 12px;
+}
+
+.pos-slot.is-ghost {
+  border-color: var(--accent);
+}
+
+.pos-slot.is-transparent {
+  display: contents;
+}
+
+.pos-target {
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 56px;
+  font: 700 0.85rem 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 10px;
+  box-shadow: 0 10px 24px -10px var(--accent);
+}
+
 /* ---------- Toast ---------- */
 
 .copy-text {
@@ -692,6 +1066,20 @@ body {
 
   .bm-stage {
     padding: 12px;
+  }
+
+  .side-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .number-row .control {
+    flex: 1 1 120px;
+  }
+
+  .number-row .control-field,
+  .number-row .control-field input {
+    width: 100%;
+    min-width: 0;
   }
 }
 

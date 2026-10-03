@@ -2,6 +2,15 @@
 
 const tabs = [...document.querySelectorAll('[role="tab"]')];
 
+// On narrow screens the tab bar scrolls, so keep the active tab visible
+const scrollTabIntoView = (tab, behavior = "smooth") => {
+  const bar = tab.parentElement;
+  bar.scrollTo({
+    left: tab.offsetLeft - (bar.clientWidth - tab.offsetWidth) / 2,
+    behavior,
+  });
+}
+
 const selectTab = (tab, { focus = false, updateHash = true } = {}) => {
   tabs.forEach(other => {
     const isActive = other === tab;
@@ -13,6 +22,8 @@ const selectTab = (tab, { focus = false, updateHash = true } = {}) => {
   if (focus) {
     tab.focus();
   }
+
+  scrollTabIntoView(tab);
 
   if (updateHash) {
     history.replaceState(null, "", `#${tab.dataset.hash}`);
@@ -41,4 +52,6 @@ const initialTab = tabs.find(tab => `#${tab.dataset.hash}` === location.hash);
 
 if (initialTab) {
   selectTab(initialTab, { updateHash: false });
+  // Tab widths change once the web font loads, so re-center after that
+  document.fonts.ready.then(() => scrollTabIntoView(initialTab, "instant"));
 }
