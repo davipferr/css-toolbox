@@ -3,70 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="description" content="Preview and copy CSS border-radius values in real time.">
+  <title>Border Radius Previewer</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <div class="align-center">
-    <div class="box box-radius"></div>
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
   </div>
 
-  <div class="props-text" id="change-css">
-    <div class="text-align">
-      <span id="border-top-left-radius"></span>
-      <input
-        id="border-top-left-radius"
-        type="number"
-        value="0"
-      >
-      <span> % </span>
-    </div>
-    <div class="text-align">
-      <span id="border-top-right-radius"></span>
-      <input
-      id="border-top-right-radius"
-        type="number"
-        value="0"
-      >
-      <span> % </span>
-    </div>
-    <div class="text-align">
-      <span id="border-bottom-left-radius"></span>
-      <input
-        id="border-bottom-left-radius"
-        type="number"
-        value="0"
-      >
-      <span> % </span>
-    </div>
-    <div class="text-align">
-      <span id="border-bottom-right-radius"></span>
-      <input
-        id="border-bottom-right-radius"
-        type="number"
-        value="0"
-      >
-      <span> % </span>
-    </div>
-  </div>
+  <header class="header">
+    <h1 class="title">Border Radius <span class="title-accent">Previewer</span></h1>
+    <p class="subtitle">Tweak each corner and copy the CSS in one click.</p>
+  </header>
 
-  <div class="align-center">
-    <button
-      id="copy-button"
-      class="copy-button"
-    >
-      Copy CSS
-    </button>
-  </div>
+  <main class="card">
+    <div class="props-text" id="change-css">
+      <div class="controls controls-top">
+        <label class="text-align control">
+          <span id="border-top-left-radius" class="control-label"></span>
+          <span class="control-field">
+            <input
+              id="border-top-left-radius"
+              type="number"
+              min="0"
+              max="100"
+              value="0"
+            >
+            <span class="unit">%</span>
+          </span>
+        </label>
+        <label class="text-align control">
+          <span id="border-top-right-radius" class="control-label"></span>
+          <span class="control-field">
+            <input
+              id="border-top-right-radius"
+              type="number"
+              min="0"
+              max="100"
+              value="0"
+            >
+            <span class="unit">%</span>
+          </span>
+        </label>
+      </div>
 
-  <div class="align-center">
-    <span
-      class="copy-text"
-      id="copy-message"
-    >
-    </span>
-  </div>
+      <div class="align-center stage">
+        <div class="box box-radius"></div>
+      </div>
+
+      <div class="controls controls-bottom">
+        <label class="text-align control">
+          <span id="border-bottom-left-radius" class="control-label"></span>
+          <span class="control-field">
+            <input
+              id="border-bottom-left-radius"
+              type="number"
+              min="0"
+              max="100"
+              value="0"
+            >
+            <span class="unit">%</span>
+          </span>
+        </label>
+        <label class="text-align control">
+          <span id="border-bottom-right-radius" class="control-label"></span>
+          <span class="control-field">
+            <input
+              id="border-bottom-right-radius"
+              type="number"
+              min="0"
+              max="100"
+              value="0"
+            >
+            <span class="unit">%</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="align-center actions">
+      <button
+        id="copy-button"
+        class="copy-button"
+        type="button"
+      >
+        <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+          <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+        </svg>
+        Copy CSS
+      </button>
+    </div>
+  </main>
+
+  <span class="copy-text" id="copy-message" role="status" aria-live="polite"></span>
 
   <script type="module" src="scripts/index.js"></script>
   <script type="module" src="scripts/copy-css.js"></script>
